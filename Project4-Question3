@@ -1,0 +1,50 @@
+db.treeParent.insertMany([
+{_id : "Books", parent : null},
+{_id : "Programming", parent : "Books"},
+{_id : "Languages", parent : "Programming"},
+{_id : "Databases", parent : "Programming"},
+{_id : "MongoDB", parent : "Databases"},
+{_id : "dbm", parent : "Databases"}
+])
+
+
+/*
+1) Assume we model the records and relationships in Figure 1 using the Parent-Referencing model (Slide 4 in 
+MongoDB-3). Write a query to report the ancestors of “MongoDB”. The output should be an array containing 
+values [{Name: “Databases”, Level: 1}, 
+
+*/
+
+var ancestors = [];
+var stack = [];
+var item = db.treeParent.findOne({_id:"MongoDB"});
+stack.push(item);
+var level =1;
+
+while(stack.length>0){
+	var current = stack.pop();
+	var parent = db.treeParent.findOne({_id: current.parent});
+	if(parent != null){
+	ancestors.push([parent._id, "Level "+ level]);
+	stack.push(parent)
+	level = level +1;
+	}
+}
+ancestors;
+
+/*
+3) Assume we model the records and relationships in Figure 1 using the Child-Referencing model (Slide 9 in 
+MongoDB-3). Write a query to report the parent of “dbm”.
+*/
+
+
+db.treeChild.insertMany([
+{_id : "Books", children : ["Programming"]},
+{_id : "Programming", children : ["Languages", "Databases"]},
+{_id : "Languages", children : []},
+{_id : "Databases", children : ["MongoDB", "dbm"]},
+{_id : "MongoDB", children : []},
+{_id : "dbm", children : []}
+])
+
+db.treeChild.findOne({"children":"dbm"});
