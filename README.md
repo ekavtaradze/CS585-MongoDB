@@ -22,8 +22,7 @@ How to run:
 	
 To connect to existing db
 
-	via Shell 4.0:  mongo "mongodb+srv://cluster0.y9eze.mongodb.net/TestDB" --username Elene
-			password: elene13
+-----
 			This db will have the tables populated
 			Db name: TestDB
 			cluster: Cluster0
