@@ -1,5 +1,5 @@
 # Project4
-Project 4 - Big Data Management
+Project 4 - Big Data Management @WPI
 
 Team: Elene Kavtaradze and Michael Ludwig
 
